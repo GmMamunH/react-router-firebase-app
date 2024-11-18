@@ -38,7 +38,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "*",
+    path: "/*",
+    exact: true,
     element: <NotFound />,
   },
 ]);
