@@ -7,6 +7,8 @@ import NotFound from "../pages/NotFound";
 import Users from "../pages/Users";
 import UserDetails from "../pages/UserDetails";
 import { loadData, loadSingleData } from "../utils/utils";
+import SignUp from "../pages/SignUp";
+import Login from "../pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
     ],
+  },
+  {
+    path: "signup",
+    element: <SignUp />,
+  },
+  {
+    path: "login",
+    element: <Login />,
   },
   {
     path: "*",
