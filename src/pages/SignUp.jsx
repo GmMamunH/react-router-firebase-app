@@ -1,11 +1,48 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import SocialLogin from "../components/SocialLogin";
-import { VscEyeClosed } from "react-icons/vsc";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { TEInput, TERipple } from "tw-elements-react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+import { registerWithEmailAndPassword } from "../firebase/firebase";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await registerWithEmailAndPassword(name, email, password);
+      toast.success(
+        "Signed up successfully, Please verify your email before logging in.",
+        {
+          onClose: () => navigate("/login"),
+          toastId: "success2",
+        }
+      );
+    } catch (error) {
+      toast.error(`An error occurred during signup: ${error.message}`);
+    }
+  };
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+      />
       <section className="mt-10">
         <div className="flex justify-end px-10">
           <div> </div>
@@ -35,9 +72,11 @@ const SignUp = () => {
 
             {/* <!-- Right column container with form --> */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-              <form>
+              <form onSubmit={handleSubmit}>
                 {/* <!-- Name input --> */}
                 <TEInput
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   type="text"
                   label="Name"
                   size="lg"
@@ -47,6 +86,8 @@ const SignUp = () => {
 
                 {/* <!-- Email input --> */}
                 <TEInput
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   label="Email address"
                   size="lg"
@@ -57,13 +98,23 @@ const SignUp = () => {
                 {/* <!--Password input--> */}
                 <div className="relative mb-6">
                   <TEInput
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type={showPassword ? "text" : "password"}
                     label="Password"
                     size="lg"
                     className="w-full p-3 border border-gray-300 rounded-md focus:outline-none"
                     required
                   ></TEInput>
-                  <div className="absolute inset-y-0 right-3 flex items-center cursor-pointer">
-                    <VscEyeClosed size={24} />
+                  <div
+                    className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <VscEyeClosed size={24} />
+                    ) : (
+                      <VscEye size={24} />
+                    )}
                   </div>
                 </div>
 

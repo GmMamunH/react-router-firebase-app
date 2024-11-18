@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -18,7 +19,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     await sendEmailVerification(user);
     await signOut(auth);
   } catch (error) {
-    console.error("Error registering user: ", error.message);
+    throw error;
   }
 };
 
