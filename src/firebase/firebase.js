@@ -84,5 +84,5 @@ export {
   sendResetPassword,
   loginWithGoogle,
   loginWithGithub,
-  loginInWithFacebook
+  loginInWithFacebook,
 };
