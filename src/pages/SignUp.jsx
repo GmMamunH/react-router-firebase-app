@@ -5,7 +5,11 @@ import { TEInput, TERipple } from "tw-elements-react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
-import { registerWithEmailAndPassword } from "../firebase/firebase";
+import {
+  loginWithGithub,
+  loginWithGoogle,
+  registerWithEmailAndPassword,
+} from "../firebase/firebase";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -29,6 +33,29 @@ const SignUp = () => {
       toast.error(`An error occurred during signup: ${error.message}`);
     }
   };
+
+  const handleLoginWithGoogle = async () => {
+    try {
+      await loginWithGoogle();
+      toast.success(`Log In Successfully with Google`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
+  };
+
+  const handleLoginWithGithub = async () => {
+    try {
+      await loginWithGithub();
+      toast.success(`Log In Successfully with Github`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
+  };
+
   return (
     <div>
       <ToastContainer
@@ -147,7 +174,10 @@ const SignUp = () => {
                     OR
                   </p>
                 </div>
-                <SocialLogin />
+                <SocialLogin
+                  onLoginWithGoogle={handleLoginWithGoogle}
+                  onLoginWithGithub={handleLoginWithGithub}
+                />
               </form>
             </div>
           </div>
