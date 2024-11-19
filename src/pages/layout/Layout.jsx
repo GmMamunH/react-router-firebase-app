@@ -6,11 +6,11 @@ import Loading from "../../components/Loading";
 const Layout = () => {
   const navigation = useNavigation();
   return (
-    <div>
+    <>
       <NavBar />
       <div>{navigation.state === "loading" ? <Loading /> : <Outlet />}</div>
       <Footer />
-    </div>
+    </>
   );
 };
 

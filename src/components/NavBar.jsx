@@ -1,8 +1,37 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/firebase.config";
+import { toast, ToastContainer } from "react-toastify";
+import { signOut } from "firebase/auth";
 
 const NavBar = () => {
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logged out successfully", {
+        onClose: () => navigate("/login"),
+      });
+    } catch (error) {
+      toast.error("An error occurred while logging out", error);
+    }
+  };
+
   return (
     <nav className="bg-slate-200 text-black py-4">
+      <ToastContainer
+        position="top-center"
+        autoClose={500}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="light"
+      />
       <div className="container mx-auto">
         <div className={`w-full`}>
           <div className="text-md flex justify-between items-center w-full">
@@ -54,12 +83,21 @@ const NavBar = () => {
               >
                 About
               </NavLink>
-              <NavLink
-                to={"/signup"}
-                className="text-white bg-orange-500 block mt-4 lg:inline-block lg:mt-0 py-1.5 px-4 rounded-md hover:bg-orange-600"
-              >
-                Sign Up
-              </NavLink>
+              {user ? (
+                <button
+                  className="text-white bg-orange-500 block mt-4 lg:inline-block lg:mt-0 py-1.5 px-4 rounded-md hover:bg-orange-600"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              ) : (
+                <NavLink
+                  to={"/signup"}
+                  className="text-white bg-orange-500 block mt-4 lg:inline-block lg:mt-0 py-1.5 px-4 rounded-md hover:bg-orange-600"
+                >
+                  Sign Up
+                </NavLink>
+              )}
             </div>
           </div>
         </div>

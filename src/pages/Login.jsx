@@ -1,15 +1,45 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { TEInput, TERipple } from "tw-elements-react";
 
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { toast, ToastContainer } from "react-toastify";
+import { loginWithEmailAndPassword } from "../firebase/firebase";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await loginWithEmailAndPassword(email, password);
+      toast.success("Logged in successfully!", {
+        onClose: () => navigate("/"),
+        toastId: "success1",
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error.message);
+    }
+  };
 
   return (
     <section className="mt-10">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <div className="flex justify-end px-10">
         <div> </div>
         <div>
@@ -38,9 +68,11 @@ const Login = () => {
 
           {/* <!-- Right column container with form --> */}
           <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-            <form>
+            <form onSubmit={handleSubmit}>
               {/* <!-- Email input --> */}
               <TEInput
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 label="Email address"
                 size="lg"
@@ -51,6 +83,8 @@ const Login = () => {
               {/* <!--Password input--> */}
               <div className="relative mb-6">
                 <TEInput
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type={showPassword ? "text" : "password"}
                   label="Password"
                   size="lg"

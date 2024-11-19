@@ -9,6 +9,7 @@ import UserDetails from "../pages/UserDetails";
 import { loadData, loadSingleData } from "../utils/utils";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
+import Reset from "../pages/Reset";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "reset",
+    element: <Reset />,
   },
   {
     path: "*",
