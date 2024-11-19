@@ -10,6 +10,7 @@ import { loadData, loadSingleData } from "../utils/utils";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
 import Reset from "../pages/Reset";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
       },
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <PrivateRoutes>
+            <Users />
+          </PrivateRoutes>
+        ),
         loader: loadData,
       },
       {
