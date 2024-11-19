@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
 import {
+  loginInWithFacebook,
   loginWithGithub,
   loginWithGoogle,
   registerWithEmailAndPassword,
@@ -54,6 +55,13 @@ const SignUp = () => {
     } catch (error) {
       toast.error("An error occurred during login", error);
     }
+  };
+
+  const handleLoginWithFacebook = async () => {
+    await loginInWithFacebook();
+    toast.success(`Log In Successfully with Facebook`, {
+      onClose: () => navigate("/"),
+    });
   };
 
   return (
@@ -177,6 +185,7 @@ const SignUp = () => {
                 <SocialLogin
                   onLoginWithGoogle={handleLoginWithGoogle}
                   onLoginWithGithub={handleLoginWithGithub}
+                  onLoginWithFacebook= {handleLoginWithFacebook}
                 />
               </form>
             </div>

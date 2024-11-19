@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-catch */
 import {
   createUserWithEmailAndPassword,
+  FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
@@ -14,6 +15,7 @@ import { auth } from "./firebase.config";
 
 const googleAuthProvider = new GoogleAuthProvider();
 const githubAuthProvider = new GithubAuthProvider();
+const facebookAuthProvider = new FacebookAuthProvider();
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
@@ -58,6 +60,16 @@ const loginWithGithub = async () => {
   }
 };
 
+const loginInWithFacebook = async () => {
+  try {
+    const res = await signInWithPopup(auth, facebookAuthProvider);
+    const user = res.user;
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const sendResetPassword = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
@@ -72,4 +84,5 @@ export {
   sendResetPassword,
   loginWithGoogle,
   loginWithGithub,
+  loginInWithFacebook
 };
