@@ -68,7 +68,7 @@ const SignUp = () => {
     <div>
       <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick={true}

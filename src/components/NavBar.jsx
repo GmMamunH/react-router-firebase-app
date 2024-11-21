@@ -22,7 +22,7 @@ const NavBar = () => {
     <nav className="bg-slate-200 text-black py-4">
       <ToastContainer
         position="top-center"
-        autoClose={500}
+        autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick={true}

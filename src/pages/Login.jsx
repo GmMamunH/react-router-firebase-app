@@ -5,7 +5,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { toast, ToastContainer } from "react-toastify";
-import { loginWithEmailAndPassword } from "../firebase/firebase";
+import { loginWithEmailAndPassword, loginWithGoogle, loginWithGithub, loginInWithFacebook } from "../firebase/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,11 +26,40 @@ const Login = () => {
     }
   };
 
+  const handleLoginWithGoogle = async () => {
+    try {
+      await loginWithGoogle();
+      toast.success(`Log In Successfully with Google`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
+  };
+
+  const handleLoginWithGithub = async () => {
+    try {
+      await loginWithGithub();
+      toast.success(`Log In Successfully with Github`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
+  };
+
+  const handleLoginWithFacebook = async () => {
+    await loginInWithFacebook();
+    toast.success(`Log In Successfully with Facebook`, {
+      onClose: () => navigate("/"),
+    });
+  };
+
   return (
     <section className="mt-10">
       <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick={true}
@@ -143,7 +172,11 @@ const Login = () => {
                   OR
                 </p>
               </div>
-              <SocialLogin />
+              <SocialLogin
+                onLoginWithGoogle={handleLoginWithGoogle}
+                onLoginWithGithub={handleLoginWithGithub}
+                onLoginWithFacebook={handleLoginWithFacebook}
+              />
             </form>
           </div>
         </div>
