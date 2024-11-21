@@ -32,73 +32,69 @@ const NavBar = () => {
         pauseOnHover={false}
         theme="light"
       />
-      <div className="container mx-auto">
-        <div className={`w-full`}>
-          <div className="text-md flex justify-between items-center w-full">
-            <NavLink to={"/"}>
-              <div className="mr-6">
-                <span className="font-semibold text-xl tracking-tight">
-                  ASSDI
-                </span>
-              </div>
+      <div className="container mx-auto px-4 py-1">
+        <div className="flex items-center justify-between">
+          <NavLink to={"/"} className="flex items-center">
+            <span className="font-semibold text-xl tracking-tight">
+              ASSDI
+            </span>
+          </NavLink>
+          <div className="flex items-center space-x-6">
+            <NavLink
+              to={"/"}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-400 hover:text-orange-500"
+                  : "text-black hover:text-orange-500"
+              }
+            >
+              Home
             </NavLink>
-            <div className="space-x-6 flex justify-between items-center">
-              <NavLink
-                to={"/"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-orange-400 block mt-4 lg:inline-block lg:mt-0 hover:text-orange-500 "
-                    : "block mt-4 lg:inline-block lg:mt-0 text-black hover:text-orange-500 "
-                }
+            <NavLink
+              to={"/users"}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-400 hover:text-orange-500"
+                  : "text-black hover:text-orange-500"
+              }
+            >
+              Users
+            </NavLink>
+            <NavLink
+              to={"/contact"}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-400 hover:text-orange-500"
+                  : "text-black hover:text-orange-500"
+              }
+            >
+              Contact
+            </NavLink>
+            <NavLink
+              to={"/about"}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-orange-400 hover:text-orange-500"
+                  : "text-black hover:text-orange-500"
+              }
+            >
+              About
+            </NavLink>
+            {user ? (
+              <button
+                className="text-white bg-orange-500 py-2 px-4 rounded-md hover:bg-orange-600"
+                onClick={handleLogout}
               >
-                Home
-              </NavLink>
+                Logout
+              </button>
+            ) : (
               <NavLink
-                to={"/users"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-orange-400 block mt-4 lg:inline-block lg:mt-0 hover:text-orange-500 "
-                    : "block mt-4 lg:inline-block lg:mt-0 text-black hover:text-orange-500 "
-                }
+                to={"/signup"}
+                className="text-white bg-orange-500 py-2 px-4 rounded-md hover:bg-orange-600"
               >
-                Users
+                Sign Up
               </NavLink>
-              <NavLink
-                to={"/contact"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-orange-400 block mt-4 lg:inline-block lg:mt-0 hover:text-orange-500 "
-                    : "block mt-4 lg:inline-block lg:mt-0 text-black hover:text-orange-500 "
-                }
-              >
-                Contact
-              </NavLink>
-              <NavLink
-                to={"/about"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-orange-400 block mt-4 lg:inline-block lg:mt-0 hover:text-orange-500 "
-                    : "block mt-4 lg:inline-block lg:mt-0 text-black hover:text-orange-500 "
-                }
-              >
-                About
-              </NavLink>
-              {user ? (
-                <button
-                  className="text-white bg-orange-500 block mt-4 lg:inline-block lg:mt-0 py-1.5 px-4 rounded-md hover:bg-orange-600"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              ) : (
-                <NavLink
-                  to={"/signup"}
-                  className="text-white bg-orange-500 block mt-4 lg:inline-block lg:mt-0 py-1.5 px-4 rounded-md hover:bg-orange-600"
-                >
-                  Sign Up
-                </NavLink>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>
