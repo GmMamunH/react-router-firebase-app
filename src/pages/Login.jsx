@@ -5,7 +5,12 @@ import { TEInput, TERipple } from "tw-elements-react";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { toast, ToastContainer } from "react-toastify";
-import { loginWithEmailAndPassword, loginWithGoogle, loginWithGithub, loginInWithFacebook } from "../firebase/firebase";
+import {
+  loginWithEmailAndPassword,
+  loginWithGoogle,
+  loginWithGithub,
+  loginInWithFacebook,
+} from "../firebase/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,10 +54,14 @@ const Login = () => {
   };
 
   const handleLoginWithFacebook = async () => {
-    await loginInWithFacebook();
-    toast.success(`Log In Successfully with Facebook`, {
-      onClose: () => navigate("/"),
-    });
+    try {
+      await loginInWithFacebook();
+      toast.success(`Log In Successfully with Facebook`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
   };
 
   return (

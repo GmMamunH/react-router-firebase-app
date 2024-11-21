@@ -58,10 +58,14 @@ const SignUp = () => {
   };
 
   const handleLoginWithFacebook = async () => {
-    await loginInWithFacebook();
-    toast.success(`Log In Successfully with Facebook`, {
-      onClose: () => navigate("/"),
-    });
+    try {
+      await loginInWithFacebook();
+      toast.success(`Log In Successfully with Facebook`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
   };
 
   return (
@@ -185,7 +189,7 @@ const SignUp = () => {
                 <SocialLogin
                   onLoginWithGoogle={handleLoginWithGoogle}
                   onLoginWithGithub={handleLoginWithGithub}
-                  onLoginWithFacebook= {handleLoginWithFacebook}
+                  onLoginWithFacebook={handleLoginWithFacebook}
                 />
               </form>
             </div>
