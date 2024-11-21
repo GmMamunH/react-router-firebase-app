@@ -35,7 +35,7 @@ const NavBar = () => {
       <div className="container mx-auto px-4 py-1">
         <div className="flex items-center justify-between">
           <NavLink to={"/"} className="flex items-center">
-            <span className="font-semibold text-xl tracking-tight">
+            <span className="font-semibold text-xl tracking-tight text-orange-600">
               ASSDI
             </span>
           </NavLink>
